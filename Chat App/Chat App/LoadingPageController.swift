@@ -19,8 +19,14 @@ class LoadingPageController: UIViewController {
         super.viewDidAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             if let userId = Auth.auth().currentUser?.uid {
-                let vc = ChatListController()
-                self.navigationController?.pushViewController(vc, animated: true)
+                User.getUser(userId: userId) { user, error in
+                    guard let user = user else {
+                        return
+                }
+                    Database.shared.currentUser = user
+                    let vc = ChatListController()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             } else {
                 let vc = OnboardingController()
                 self.navigationController?.pushViewController(vc, animated: true)
