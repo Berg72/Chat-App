@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct User: CPObject {
     static let collectionName = CollectionName.User
     
     var id: String?

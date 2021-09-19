@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ChatMessage: Codable {
-    static let collectionName = CollectionName.User
+struct ChatMessage: CPObject {
+    static let collectionName = CollectionName.ChatMessage
     
     var id: String?
     var authorId: String
