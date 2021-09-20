@@ -19,6 +19,8 @@
 		D970141726E7018900A9B808 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141626E7018900A9B808 /* SignUpController.swift */; };
 		D970141926E7019400A9B808 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141826E7019400A9B808 /* SignInController.swift */; };
 		D970141B26ED904200A9B808 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141A26ED904200A9B808 /* UITextField.swift */; };
+		D9759F5826F81BEE00F37DDD /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9759F5726F81BEE00F37DDD /* ChatListCell.swift */; };
+		D9759F5A26F81CAB00F37DDD /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9759F5926F81CAB00F37DDD /* UITableViewCell.swift */; };
 		D97C258426E45947003BADC9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C258326E45947003BADC9 /* UIColor.swift */; };
 		D9D6EE1E26E41D46008DFEED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */; };
 		D9D6EE2026E41D46008DFEED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1F26E41D46008DFEED /* SceneDelegate.swift */; };
@@ -43,6 +45,8 @@
 		D970141626E7018900A9B808 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		D970141826E7019400A9B808 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		D970141A26ED904200A9B808 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		D9759F5726F81BEE00F37DDD /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
+		D9759F5926F81CAB00F37DDD /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		D97C258326E45947003BADC9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		D9D6EE1A26E41D46008DFEED /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				D970141226E549D700A9B808 /* Encodable.swift */,
 				D970141426E551C900A9B808 /* DocumentSnapshit.swift */,
 				D970141A26ED904200A9B808 /* UITextField.swift */,
+				D9759F5926F81CAB00F37DDD /* UITableViewCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				D970141626E7018900A9B808 /* SignUpController.swift */,
 				D970141826E7019400A9B808 /* SignInController.swift */,
 				D970140726E5485400A9B808 /* ChatListController.swift */,
+				D9759F5726F81BEE00F37DDD /* ChatListCell.swift */,
 				D970140926E548DD00A9B808 /* Database */,
 				D97C258226E4592D003BADC9 /* Extensions */,
 				D9D6EE2626E41D47008DFEED /* Assets.xcassets */,
@@ -266,12 +272,14 @@
 				D970140D26E548F700A9B808 /* User.swift in Sources */,
 				D970140626E5479A00A9B808 /* OnboardingController.swift in Sources */,
 				D970140B26E548EF00A9B808 /* Database.swift in Sources */,
+				D9759F5826F81BEE00F37DDD /* ChatListCell.swift in Sources */,
 				D970141926E7019400A9B808 /* SignInController.swift in Sources */,
 				D970141126E5490F00A9B808 /* Conversation.swift in Sources */,
 				D970141B26ED904200A9B808 /* UITextField.swift in Sources */,
 				D9D6EE3426E42C98008DFEED /* LoadingPageController.swift in Sources */,
 				D970141526E551C900A9B808 /* DocumentSnapshit.swift in Sources */,
 				D970141326E549D700A9B808 /* Encodable.swift in Sources */,
+				D9759F5A26F81CAB00F37DDD /* UITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
