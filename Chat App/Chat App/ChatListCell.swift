@@ -26,6 +26,13 @@ class ChatListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(conversation: Conversation) {
+        nameLabel.text = conversation.participants.first(where: { $0.id != Database.shared.currentUser?.id })?.name
+        lastMessageLabel.text = conversation.lastMessageText
+        let date = Date(timeIntervalSince1970: conversation.lastUpdated)
+        timeAgoLabel.text = date.timeAgoDisplay()
+    }
+    
 }
 
 private extension ChatListCell {

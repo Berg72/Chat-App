@@ -1,44 +1,39 @@
 //
-//  ChatListController.swift
+//  NewChatController.swift
 //  Chat App
 //
-//  Created by Mark bergeson on 9/5/21.
+//  Created by Mark bergeson on 9/25/21.
 //
 
 import UIKit
 
-class ChatListController: UIViewController {
+class NewChatController: UIViewController {
     
-    private var tableView = UITableView(frame: .zero, style: .plain)
-    private var datasource = [Conversation]()
+    private let tableView = UITableView(frame: .zero, style: .plain)
+    private var datasource = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        loadUsers()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadConversations()
-    }
 }
 
-
-private extension ChatListController {
+private extension NewChatController {
     
     func setupView() {
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.title = "Chat App"
+        navigationItem.title = "New Chat"
         navigationController?.navigationBar.tintColor = .blue1
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(viewProfileAction))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeAction))
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
         tableView.backgroundColor = .white
         tableView.backgroundView?.backgroundColor = .white
-        tableView.register(ChatListCell.self, forCellReuseIdentifier: ChatListCell.reusIdentifier())
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reusIdentifier())
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 71.0
@@ -54,28 +49,21 @@ private extension ChatListController {
     }
     
     @objc
-    func viewProfileAction() {
-        
+    func closeAction() {
+        dismiss(animated: true, completion: nil)
     }
     
-    @objc
-    func addButtonAction() {
-        let nav = UINavigationController(rootViewController: NewChatController())
-        present(nav, animated: true, completion: nil)
-    }
-    
-    func loadConversations() {
-        datasource.removeAll()
-        guard let userId = Database.shared.currentUser?.id else { return }
-        Conversation.getConversations(userId: userId) { (conversations, error) in
-            guard let conversations = conversations else { return }
-            self.datasource.append(contentsOf: conversations)
+    func loadUsers() {
+        User.getUsers { (users, error) in
+            guard var users = users else { return }
+        users = users.filter({$0.id != Database.shared.currentUser?.id })
+            self.datasource.append(contentsOf: users)
             self.tableView.reloadData()
         }
     }
 }
 
-extension ChatListController: UITableViewDelegate, UITableViewDataSource {
+extension NewChatController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -86,16 +74,20 @@ extension ChatListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.reusIdentifier(), for: indexPath)
-        
-        if let cell = cell as? ChatListCell {
-            cell.configure(conversation: datasource[indexPath.row])
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reusIdentifier(), for: indexPath)
+        cell.textLabel?.text = datasource[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let currentUser = Database.shared.currentUser, let currentUserId = currentUser.id else { return }
+        guard let selectedId = datasource[indexPath.row].id else { return }
+        let date = Date().timeIntervalSince1970
+        let conversation = Conversation(id: nil, participants: [currentUser, datasource[indexPath.row]], participantsId: [currentUserId, selectedId], lastMessageText: nil, created: date, createdBy: currentUserId, lastUpdated: date, lastUpdatedBy: currentUserId, archived: false, archivedAt: nil)
+        Database.shared.save(conversation) { (conversation, error) in
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
+

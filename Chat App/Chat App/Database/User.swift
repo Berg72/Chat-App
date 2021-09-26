@@ -49,4 +49,29 @@ extension User {
         }
     }
     
+    static func getUsers(onComplete: @escaping (_ users: [User]?, _ error: Error?) -> ()) {
+        Database.shared.db.collection(collectionName.rawValue).getDocuments { (snapshot, error) in
+            if let error = error {
+                onComplete(nil, error)
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                onComplete(nil, nil)
+                return
+            }
+            
+            var objects = [User]()
+            for document in documents {
+                do {
+                    let obj = try document.decode(as: User.self)
+                    objects.append(obj)
+                } catch {
+                    print(error)
+                    onComplete(nil, error)
+                }
+            }
+            onComplete(objects, nil)
+        }
+    }
 }
