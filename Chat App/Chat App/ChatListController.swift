@@ -55,7 +55,8 @@ private extension ChatListController {
     
     @objc
     func viewProfileAction() {
-        
+        let nav = UINavigationController(rootViewController: ProfileController())
+        present(nav, animated: true, completion: nil)
     }
     
     @objc
