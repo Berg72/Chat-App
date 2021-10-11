@@ -31,6 +31,7 @@ class Database {
     let db: Firestore
     
     var currentUser: User?
+    var currentListener: ListenerRegistration?
     
     private init() {
         let firestoreSettings = FirestoreSettings()

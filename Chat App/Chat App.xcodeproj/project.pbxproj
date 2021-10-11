@@ -25,6 +25,9 @@
 		D9759F5E2700FDA000F37DDD /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9759F5D2700FDA000F37DDD /* Date.swift */; };
 		D9759F602701545800F37DDD /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9759F5F2701545800F37DDD /* ProfileController.swift */; };
 		D97C258426E45947003BADC9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C258326E45947003BADC9 /* UIColor.swift */; };
+		D9829417270A46D1000CE3A8 /* ConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9829416270A46D1000CE3A8 /* ConversationController.swift */; };
+		D9829419270A524D000CE3A8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9829418270A524D000CE3A8 /* MessageCell.swift */; };
+		D982941B270AA55F000CE3A8 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D982941A270AA55F000CE3A8 /* CALayer.swift */; };
 		D9D6EE1E26E41D46008DFEED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */; };
 		D9D6EE2026E41D46008DFEED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1F26E41D46008DFEED /* SceneDelegate.swift */; };
 		D9D6EE2726E41D47008DFEED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9D6EE2626E41D47008DFEED /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 		D9759F5D2700FDA000F37DDD /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		D9759F5F2701545800F37DDD /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		D97C258326E45947003BADC9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		D9829416270A46D1000CE3A8 /* ConversationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationController.swift; sourceTree = "<group>"; };
+		D9829418270A524D000CE3A8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		D982941A270AA55F000CE3A8 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		D9D6EE1A26E41D46008DFEED /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9D6EE1F26E41D46008DFEED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +119,7 @@
 				D970141A26ED904200A9B808 /* UITextField.swift */,
 				D9759F5926F81CAB00F37DDD /* UITableViewCell.swift */,
 				D9759F5D2700FDA000F37DDD /* Date.swift */,
+				D982941A270AA55F000CE3A8 /* CALayer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -148,6 +155,8 @@
 				D9759F5726F81BEE00F37DDD /* ChatListCell.swift */,
 				D9759F5B26FFF13100F37DDD /* NewChatController.swift */,
 				D9759F5F2701545800F37DDD /* ProfileController.swift */,
+				D9829416270A46D1000CE3A8 /* ConversationController.swift */,
+				D9829418270A524D000CE3A8 /* MessageCell.swift */,
 				D970140926E548DD00A9B808 /* Database */,
 				D97C258226E4592D003BADC9 /* Extensions */,
 				D9D6EE2626E41D47008DFEED /* Assets.xcassets */,
@@ -283,6 +292,7 @@
 				D970140B26E548EF00A9B808 /* Database.swift in Sources */,
 				D9759F5826F81BEE00F37DDD /* ChatListCell.swift in Sources */,
 				D970141926E7019400A9B808 /* SignInController.swift in Sources */,
+				D9829419270A524D000CE3A8 /* MessageCell.swift in Sources */,
 				D970141126E5490F00A9B808 /* Conversation.swift in Sources */,
 				D970141B26ED904200A9B808 /* UITextField.swift in Sources */,
 				D9D6EE3426E42C98008DFEED /* LoadingPageController.swift in Sources */,
@@ -291,6 +301,8 @@
 				D970141326E549D700A9B808 /* Encodable.swift in Sources */,
 				D9759F5E2700FDA000F37DDD /* Date.swift in Sources */,
 				D9759F5C26FFF13100F37DDD /* NewChatController.swift in Sources */,
+				D982941B270AA55F000CE3A8 /* CALayer.swift in Sources */,
+				D9829417270A46D1000CE3A8 /* ConversationController.swift in Sources */,
 				D9759F5A26F81CAB00F37DDD /* UITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -98,5 +98,8 @@ extension ChatListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let conversation = datasource[indexPath.row]
+        let vc = ConversationController(conversation: conversation)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
