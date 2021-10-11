@@ -11,6 +11,7 @@ target 'Chat App' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Messaging'
+  pod 'Firebase/Storage'
   pod 'CodableFirebase'
 
 end
