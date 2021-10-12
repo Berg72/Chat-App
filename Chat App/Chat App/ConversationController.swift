@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import PhotosUI
 
 class ConversationController: UIViewController {
     
@@ -61,6 +63,7 @@ private extension ConversationController {
         tableView.backgroundColor = .white
         tableView.backgroundView?.backgroundColor = .white
         tableView.register(MessageCell.self, forCellReuseIdentifier: MessageCell.reusIdentifier())
+        tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.reusIdentifier())
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 71.0
@@ -95,12 +98,12 @@ private extension ConversationController {
         
         borderedView.leadingAnchor.constraint(equalTo: chatContainer.leadingAnchor, constant: 15.0).isActive = true
         borderedView.topAnchor.constraint(equalTo: chatContainer.topAnchor, constant: 15.0).isActive = true
-        borderedView.trailingAnchor.constraint(equalTo: chatContainer.trailingAnchor, constant: -54.0).isActive = true
+        borderedView.trailingAnchor.constraint(equalTo: chatContainer.trailingAnchor, constant: -94.0).isActive = true
         borderedView.bottomAnchor.constraint(equalTo: chatContainer.bottomAnchor, constant: -20.0).isActive = true
         
         let sendButton = UIButton(type: .roundedRect)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.setImage(UIImage(named: "send-button"), for: .normal)
+        sendButton.setImage(UIImage(named: "send-button2"), for: .normal)
         sendButton.addTarget(self, action: #selector(sendButtonAction), for: .touchUpInside)
         chatContainer.addSubview(sendButton)
         
@@ -108,6 +111,17 @@ private extension ConversationController {
         sendButton.topAnchor.constraint(equalTo: chatContainer.topAnchor, constant: 15.0).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
         sendButton.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        
+        let imageButton = UIButton(type: .roundedRect)
+        imageButton.translatesAutoresizingMaskIntoConstraints = false
+        imageButton.setImage(UIImage(named: "select-image"), for: .normal)
+        imageButton.addTarget(self, action: #selector(pickImageButtonAction), for: .touchUpInside)
+        chatContainer.addSubview(imageButton)
+        
+        imageButton.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor).isActive = true
+        imageButton.topAnchor.constraint(equalTo: chatContainer.topAnchor, constant: 15.0).isActive = true
+        imageButton.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
+        imageButton.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 18.0, weight: .regular)
@@ -127,6 +141,16 @@ private extension ConversationController {
     }
     
     @objc
+    func pickImageButtonAction() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    @objc
     func sendButtonAction(){
         guard let text = textView.text, !text.isEmpty else { return }
         textView.text = ""
@@ -141,6 +165,7 @@ private extension ConversationController {
         Database.shared.save(conversation) { (conversation, error) in
             
         }
+        
     }
     
     func loadMessages() {
@@ -173,12 +198,25 @@ extension ConversationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MessageCell.reusIdentifier(), for: indexPath)
+        
+        var identifier = ""
+        if datasource[indexPath.row].messageImageUrl != nil {
+            identifier = ImageCell.reusIdentifier()
+        } else {
+            identifier = MessageCell.reusIdentifier()
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.selectionStyle = .none
         
         if let cell = cell as? MessageCell {
             cell.configure(message: datasource[indexPath.row])
         }
+        
+        if let cell = cell as? ImageCell {
+            cell.configure(message: datasource[indexPath.row])
+        }
+        
         return cell
     }
 }
@@ -213,3 +251,48 @@ private extension ConversationController {
                 
         }
     }
+
+extension ConversationController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        if let itemsProvider = results.first?.itemProvider,
+           itemsProvider.canLoadObject(ofClass: UIImage.self) {
+            itemsProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                DispatchQueue.main.async {
+                    guard let self = self else {
+                        picker.dismiss(animated: true, completion: nil)
+                        return
+                    }
+                    if let image = image as? UIImage {
+                           if let data = image.jpegData(compressionQuality: 0.2) {
+                            let reference = Storage.storage().reference()
+                            let ref = reference.child("images/\(NSUUID().uuidString).jpg")
+                            
+                            ref.putData(data, metadata: nil) { (metadata, error) in
+                                ref.downloadURL { (url, error) in
+                                    guard let url = url else { return }
+                                    
+                                    guard let userId = Database.shared.currentUser?.id, let convId = self.conversation.id else { return }
+                                    let date = Date().timeIntervalSince1970
+                                    let message = ChatMessage(id: nil, conversationId: convId, authorId: userId, messageText: nil, messageImageUrl: url.absoluteString, created: date, createdBy: userId, lastUpdated: date, lastUpdatedBy: userId, archived: false, archivedAt: nil)
+                                    Database.shared.save(message) { (message, error) in
+                                        
+                                    }
+                                    
+                                    self.conversation.lastMessageText = "Sent an image"
+                                    Database.shared.save(self.conversation) { (conversation, error) in
+                                        
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        picker.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+}

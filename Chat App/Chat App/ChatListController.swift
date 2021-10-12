@@ -65,6 +65,7 @@ private extension ChatListController {
         present(nav, animated: true, completion: nil)
     }
     
+    
     func loadConversations() {
         datasource.removeAll()
         guard let userId = Database.shared.currentUser?.id else { return }

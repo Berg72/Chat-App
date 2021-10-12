@@ -28,6 +28,7 @@
 		D9829417270A46D1000CE3A8 /* ConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9829416270A46D1000CE3A8 /* ConversationController.swift */; };
 		D9829419270A524D000CE3A8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9829418270A524D000CE3A8 /* MessageCell.swift */; };
 		D982941B270AA55F000CE3A8 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D982941A270AA55F000CE3A8 /* CALayer.swift */; };
+		D982941D271543AE000CE3A8 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D982941C271543AE000CE3A8 /* ImageCell.swift */; };
 		D9D6EE1E26E41D46008DFEED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */; };
 		D9D6EE2026E41D46008DFEED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6EE1F26E41D46008DFEED /* SceneDelegate.swift */; };
 		D9D6EE2726E41D47008DFEED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9D6EE2626E41D47008DFEED /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		D9829416270A46D1000CE3A8 /* ConversationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationController.swift; sourceTree = "<group>"; };
 		D9829418270A524D000CE3A8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		D982941A270AA55F000CE3A8 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		D982941C271543AE000CE3A8 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D9D6EE1A26E41D46008DFEED /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D6EE1D26E41D46008DFEED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9D6EE1F26E41D46008DFEED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				D9759F5F2701545800F37DDD /* ProfileController.swift */,
 				D9829416270A46D1000CE3A8 /* ConversationController.swift */,
 				D9829418270A524D000CE3A8 /* MessageCell.swift */,
+				D982941C271543AE000CE3A8 /* ImageCell.swift */,
 				D970140926E548DD00A9B808 /* Database */,
 				D97C258226E4592D003BADC9 /* Extensions */,
 				D9D6EE2626E41D47008DFEED /* Assets.xcassets */,
@@ -286,6 +289,7 @@
 				D9D6EE1E26E41D46008DFEED /* AppDelegate.swift in Sources */,
 				D970140826E5485400A9B808 /* ChatListController.swift in Sources */,
 				D97C258426E45947003BADC9 /* UIColor.swift in Sources */,
+				D982941D271543AE000CE3A8 /* ImageCell.swift in Sources */,
 				D9D6EE2026E41D46008DFEED /* SceneDelegate.swift in Sources */,
 				D970140D26E548F700A9B808 /* User.swift in Sources */,
 				D970140626E5479A00A9B808 /* OnboardingController.swift in Sources */,
