@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import PhotosUI
+import FirebaseStorage
 
 class ProfileController: UIViewController {
     
     private let nameField = UITextField()
+    private let profileImageView = UIImageView()
+    private let placeholderImageView = UIImageView()
+    private let imageLabel = UILabel()
+    private let profileImageButton = UIButton(type: .roundedRect)
+    
+    private var changedImage = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +54,66 @@ private extension ProfileController {
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.widthAnchor.constraint(equalToConstant: 300.0).isActive = true
         
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.layer.cornerRadius = 70.0
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.layer.masksToBounds = true
+        profileImageView.clipsToBounds = true
+        profileImageView.layer.borderWidth = 1.0
+        profileImageView.layer.borderColor = UIColor(white: 151.0 / 255.0, alpha: 1.0).cgColor
+        containerView.addSubview(profileImageView)
+        
+        profileImageView.widthAnchor.constraint(equalToConstant: 140.0).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 140.0).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImageView.image = UIImage(named: "image-placeholder")
+        placeholderImageView.contentMode = .scaleAspectFit
+        containerView.addSubview(placeholderImageView)
+        
+        imageLabel.translatesAutoresizingMaskIntoConstraints = false
+        imageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
+        imageLabel.textColor = .blue1
+        imageLabel.textAlignment = .center
+        imageLabel.numberOfLines = 2
+        imageLabel.lineBreakMode = .byWordWrapping
+        imageLabel.text = "Tap to add your\nprofile photo"
+        containerView.addSubview(imageLabel)
+        
+        imageLabel.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+        imageLabel.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
+        imageLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor, constant: 80.0).isActive = true
+        imageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        placeholderImageView.widthAnchor.constraint(equalToConstant: 56.0).isActive = true
+        placeholderImageView.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        placeholderImageView.topAnchor.constraint(equalTo: profileImageView.topAnchor, constant: 26.0).isActive = true
+        placeholderImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        profileImageButton.translatesAutoresizingMaskIntoConstraints = false
+        profileImageButton.addTarget(self, action: #selector(displayPhotoPicker), for: .touchUpInside)
+        containerView.addSubview(profileImageButton)
+        
+        profileImageButton.widthAnchor.constraint(equalToConstant: 140.0).isActive = true
+        profileImageButton.heightAnchor.constraint(equalToConstant: 140.0).isActive = true
+        profileImageButton.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        profileImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        if let urlString = Database.shared.currentUser?.profileImageUrl, let url =
+            URL(string: urlString) {
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: url) else { return }
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    self.profileImageView.image = image
+                    self.placeholderImageView.isHidden = true
+                    self.imageLabel.isHidden = true
+                }
+            }
+        }
+        
         nameField.translatesAutoresizingMaskIntoConstraints = false
         nameField.font = UIFont.systemFont(ofSize: 18.0, weight: .regular)
         nameField.textColor = .black
@@ -58,7 +126,7 @@ private extension ProfileController {
         containerView.addSubview(nameField)
         
         nameField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
-        nameField.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        nameField.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40.0).isActive = true
         nameField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         nameField.heightAnchor.constraint(equalToConstant: 48.0).isActive = true
         
@@ -87,7 +155,26 @@ private extension ProfileController {
         user.name = text
         Database.shared.save(user) { (user, error) in
             Database.shared.currentUser = user
-            self.dismiss(animated: true, completion: nil)
+            
+            if let image = self.profileImageView.image,
+               let data = image.jpegData(compressionQuality: 0.2), self.changedImage {
+                let reference = Storage.storage().reference()
+                let ref = reference.child("images/\(NSUUID().uuidString).jpg")
+                
+                ref.putData(data, metadata: nil) { (metadata, error) in
+                    ref.downloadURL { (url, error) in
+                        guard let url = url else { return }
+                        guard var user = Database.shared.currentUser else { return }
+                        user.profileImageUrl = url.absoluteString
+                        Database.shared.currentUser = user
+                        Database.shared.save(user) { (user, error) in
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -96,5 +183,40 @@ private extension ProfileController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc
+    func displayPhotoPicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
 }
 
+extension ProfileController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        if let itemsProvider = results.first?.itemProvider,
+           itemsProvider.canLoadObject(ofClass: UIImage.self) {
+            itemsProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                DispatchQueue.main.async {
+                    guard let self = self else {
+                        picker.dismiss(animated: true, completion: nil)
+                        return
+                    }
+                    if let image = image as? UIImage {
+                        self.changedImage = true
+                        self.profileImageView.image = image
+                        self.placeholderImageView.isHidden = true
+                        self.imageLabel.isHidden = true
+                        picker.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+}
