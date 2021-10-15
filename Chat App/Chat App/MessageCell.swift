@@ -32,7 +32,7 @@ class MessageCell: UITableViewCell {
         timeAgoLabel.text = date.timeAgoDisplay()
         
         if message.authorId != Database.shared.currentUser?.id {
-            containerView.backgroundColor = .lightGray
+            containerView.backgroundColor = .gray1
             messageTextLabel.textColor = .black
         } else {
             containerView.backgroundColor = .blue1
