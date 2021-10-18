@@ -15,7 +15,7 @@
 		D970140F26E5490700A9B808 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970140E26E5490700A9B808 /* ChatMessage.swift */; };
 		D970141126E5490F00A9B808 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141026E5490F00A9B808 /* Conversation.swift */; };
 		D970141326E549D700A9B808 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141226E549D700A9B808 /* Encodable.swift */; };
-		D970141526E551C900A9B808 /* DocumentSnapshit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141426E551C900A9B808 /* DocumentSnapshit.swift */; };
+		D970141526E551C900A9B808 /* DocumentSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141426E551C900A9B808 /* DocumentSnapshot.swift */; };
 		D970141726E7018900A9B808 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141626E7018900A9B808 /* SignUpController.swift */; };
 		D970141926E7019400A9B808 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141826E7019400A9B808 /* SignInController.swift */; };
 		D970141B26ED904200A9B808 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970141A26ED904200A9B808 /* UITextField.swift */; };
@@ -48,7 +48,7 @@
 		D970140E26E5490700A9B808 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		D970141026E5490F00A9B808 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		D970141226E549D700A9B808 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
-		D970141426E551C900A9B808 /* DocumentSnapshit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSnapshit.swift; sourceTree = "<group>"; };
+		D970141426E551C900A9B808 /* DocumentSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSnapshot.swift; sourceTree = "<group>"; };
 		D970141626E7018900A9B808 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		D970141826E7019400A9B808 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		D970141A26ED904200A9B808 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			children = (
 				D97C258326E45947003BADC9 /* UIColor.swift */,
 				D970141226E549D700A9B808 /* Encodable.swift */,
-				D970141426E551C900A9B808 /* DocumentSnapshit.swift */,
+				D970141426E551C900A9B808 /* DocumentSnapshot.swift */,
 				D970141A26ED904200A9B808 /* UITextField.swift */,
 				D9759F5926F81CAB00F37DDD /* UITableViewCell.swift */,
 				D9759F5D2700FDA000F37DDD /* Date.swift */,
@@ -300,7 +300,7 @@
 				D970141126E5490F00A9B808 /* Conversation.swift in Sources */,
 				D970141B26ED904200A9B808 /* UITextField.swift in Sources */,
 				D9D6EE3426E42C98008DFEED /* LoadingPageController.swift in Sources */,
-				D970141526E551C900A9B808 /* DocumentSnapshit.swift in Sources */,
+				D970141526E551C900A9B808 /* DocumentSnapshot.swift in Sources */,
 				D9759F602701545800F37DDD /* ProfileController.swift in Sources */,
 				D970141326E549D700A9B808 /* Encodable.swift in Sources */,
 				D9759F5E2700FDA000F37DDD /* Date.swift in Sources */,
